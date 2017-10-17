@@ -24,8 +24,10 @@ and what you should write is the sayHi function that makes the code above work,
 
   // Code Here
 
+const first = (arr, cb) => cb(arr[0]);
   
-var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
+const names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
+
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName);
   return firstName;
@@ -36,7 +38,7 @@ first(names, function(firstName){
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
-
+const last = (arr, cb) => cb(arr[arr.length-1]) ;
 
 
 last(names, function(lastName){
@@ -46,10 +48,11 @@ last(names, function(lastName){
 
 
 
-// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
+// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the 
+//multiplication. 
 
   //Code Here
-
+const multiply = (num1, num2, cb) => cb(num1 * num2);
 
 
 multiply(4, 3, function(answer){
@@ -63,7 +66,16 @@ multiply(4, 3, function(answer){
 // If the name does not exist, invoke the callback with false as an argument.
 
   //Code Here 
+const contains = (namesArr, name, cb) => {
+  for (let i=0; i < namesArr.length; i++) {
+    if (namesArr[i] === name) {
+      return cb(true);
+    } else {
+      return cb(false);
+    }
+  }
 
+};
 
 
 
@@ -81,7 +93,20 @@ contains(names, 'Colt', function(result){
 // Invoke the callback with the modified array as an argument.
 
   //Code Here
-
+const uniq = (namesArr, cb) => {
+  let doubleArr = [];
+  for (var i = 0; i < namesArr.length; i++) {
+    for (var j = 0; j < namesArr.length; j++) {
+      if (doubleArr.indexOf(namesArr[i]) === -1) {
+        doubleArr.push(namesArr[i]);
+        break;
+      } else {
+        break;
+      }
+    }
+  }
+  return cb(doubleArr);
+};
 
 
 uniq(names, function(uniqArr){
@@ -89,10 +114,15 @@ uniq(names, function(uniqArr){
 });
 
 
-// 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
+// 6. Write a function called each that takes in an array of names. For each name in the array, 
+//invoke the callback and pass in the name and the name's index as arguments.
 
     //Code Here 
-
+const each = (arr, cb) => {
+  for (var i = 0; i < arr.length; i++) {
+    cb(arr[i], i)
+  }
+}
 
 
 each(names, function(item, indice){
@@ -105,7 +135,13 @@ each(names, function(item, indice){
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
 // Code here
-
+const getUserById = (arr, id, cb) => {
+  for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return cb(arr[i]);
+      }
+  }
+}
 
 
 var users = [
